@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand|Roboto&display=swap" rel="stylesheet">
+    <link href="css/principal.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand navbar-dark bg-primary">
+      <img id="Logo" src="imagenes/T-REALIZACIONES_logo_horiz-White.png" style="width: 150px; margin-right: 30px;">
+      <a href="#menu-toggle" id="menu-toggle" class="navbar-brand">
+        <span class="navbar-toggler-icon"></span>
+      </a>
+    </nav>
+    <div class="d-flex toggled" id="wrapper">
+      <div class="bg-light " id="sidebar-wrapper" >
+        <div class="list-group list-group-flush">
+          <a href="#" class="list-group-item list-group-item-action bg-light">Almacen</a>
+          <a href="#" class="list-group-item list-group-item-action bg-light">Control de almacen</a>
+          <a href="#" class="list-group-item list-group-item-action bg-light">Gestion de usuarios</a>
+          <a href="#" class="list-group-item list-group-item-action bg-light">Historial de movimientos</a>
+          <a href="#" class="list-group-item list-group-item-action bg-light">Estadisticas almacen</a>
+        </div>
+      </div>
+      <div class="container-fluid" style="margin: 2%" >
+        <div class="row align-items-center">
+          <div class="col-md-4 col-sm-12">
+            <canvas id="ingresos" class="grafico"></canvas>
+          </div>
+          <div class="col-md-4 col-sm-12">
+            <canvas id="historial" class="grafico"></canvas>
+          </div>
+          <div class="col-md-4 col-sm-12">
+            <canvas id="historial2" class="grafico"></canvas>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <canvas id="bubbles" class="grafico"></canvas>
+          </div>
+          <div class="col-md-6 col-sm-12" >
+            <canvas id="bubbles2" class="grafico"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="scripts/graficos.js"></script>
+    <script>
+      $(function(){
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+
+        $(window).resize(function(e) {
+          if($(window).width()<=768){
+            $("#wrapper").removeClass("toggled");
+          }else{
+            $("#wrapper").addClass("toggled");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

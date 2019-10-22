@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand|Roboto&display=swap" rel="stylesheet">
+    <link href="css/principal.css" rel="stylesheet">
+    <link href="css/Lista.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand navbar-dark bg-primary">
+      <img id="Logo" src="imagenes/T-REALIZACIONES_logo_horiz-White.png" style="width: 150px; margin-right: 30px;">
+      <a href="#menu-toggle" id="menu-toggle" class="navbar-brand">
+        <span class="navbar-toggler-icon"></span>
+      </a>
+    </nav>
+    <div class="d-flex toggled" id="wrapper">
+      <div class="bg-light " id="sidebar-wrapper" >
+        <div class="list-group list-group-flush">
+          <a href="#" class="list-group-item list-group-item-action bg-light">Almacen</a>
+          <a href="#" class="list-group-item list-group-item-action bg-light">Control de almacen</a>
+          <a href="#" class="list-group-item list-group-item-action bg-light">Gestion de usuarios</a>
+          <a href="#" class="list-group-item list-group-item-action bg-light">Historial de movimientos</a>
+          <a href="#" class="list-group-item list-group-item-action bg-light">Estadisticas almacen</a>
+        </div>
+      </div>
+      <div class="container-fluid" style="margin: 2%" >
+        <div class="row align-items-center">
+          <div class="col-xl-12" id="formulario">
+            <div class="buscador">
+              <h5>Buscador</h5>
+              <input ng-model="searchText" type="search">
+            </div>
+            <table class="table">
+              <tr>
+                <th>Nombre</th>
+                <th>Sector</th>
+                <th class="quitar">Fecha de modificacion</th>
+                <th class="quitar">Ultimo en modificar</th>
+                <th class="quitar">Tipo de modificacion</th>
+                <th>Cantidad</th>
+                <th class="quitar">ID</th>
+                <th>Modificar</th>
+              </tr>
+              <tr ng-if="1" ng-repeat="objetos in lista.objetos | filter:searchText">
+                <td>{{objetos.nombre}}</td>
+                <td>{{objetos.sector}}</td>
+                <td class="quitar">{{objetos.fechaModificacion}}</td>
+                <td class="quitar">{{objetos.editor}}</td>
+                <td class="quitar">{{objetos.modificacion}}</td>
+                <td>{{objetos.cantidad}}</td>
+                <td class="quitar" name="id" >{{objetos.id}}</td>
+                <td>
+                  <form method="post" action="/modificacionLink">
+                    <input type="submit" value="Modificar">
+                    <input type="number" name="id" value={{objetos.id}} style="display: none">
+                  </form>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+      var logeado = "<%-accesos%>";
+      if(logeado == "administracion"){
+        console.log("administracion");
+      }
+      else if(logeado == "normal"){
+        console.log("normal");
+      }
+      else if(logeado == "none"){
+        console.log("none");
+      }
+      else{
+        console.log("none");
+      }
+      var app = angular.module('aplicacion', []);
+      app.controller('controlPrincipal', function($scope, $http) {
+        var otro = <%- JSON.stringify(documento)%>;
+        console.log(otro);
+        $scope.almacenes = [
+          { nombre:"almacen principal",
+            objetos:otro
+          }
+        ];
+      });
+    </script>
+    <script>
+      $(function(){
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+
+        $(window).resize(function(e) {
+          if($(window).width()<=768){
+            $("#wrapper").removeClass("toggled");
+          }else{
+            $("#wrapper").addClass("toggled");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
